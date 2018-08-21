@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Listagem de contatos utilizando o Spring Boot</title>
+  <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Lista de produtos</a>
+      <a class="navbar-brand" href="/register">Novo produto</a>
+      <a class="navbar-brand" href="/vitrine">Vitrine da loja</a>
+    </nav>
+
+    <table class="table table-striped">
+      <caption>Lista de produtos no inventario</caption>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Foto</th>
+          <th>Nome</th>
+          <th>Preço</th>
+          
+          <th>Descrição</th>
+          
+          <th style="text-align: right;"></th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="product: ${products}">
+          <td th:text="${product.id}"></td>
+           <td> <img th:src="${product.photo}" width="80px" /> </td>
+          <td th:text="${product.name}"></td>
+          <td id="price" style="width: 150px;" th:text="${product.price}"> </td>
+         
+          <td th:text="${product.description}"></td>
+
+          <td style="text-align: right; width: 200px;">
+            <a th:href="@{/edit{id}(id = ${product.id})}" class="btn btn-default btn-sm">
+              <span class="glyphicon glyphicon-edit"></span>Editar</a>
+
+            <a th:href="@{/deleteproduto{id}(id = ${product.id})}" class="btn btn-default btn-sm" onclick="return confirm('Deseja mesmo deletar este item?');">
+              <span class="glyphicon glyphicon-trash"></span>Deleta</a>
+
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+</html>
